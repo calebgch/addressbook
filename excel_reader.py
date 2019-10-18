@@ -33,8 +33,9 @@ class ExcelReader:
             for irow in range(ws.max_row):
                 if self.is_department(irow+1, icol, sheet_name):
                     department = self.get_range_value(irow+1, icol, sheet_name)
-                    department = department.replace('\n', '')
-                    department = department.replace(' ', '')
+                    if department is not None:
+                        department = department.replace('\n', '')
+                        department = department.replace(' ', '')
                     continue
                 position = self.get_value(irow+1, icol+option["position"], sheet_name)
                 name = ws.cell(irow+1, icol+option["name"]).value
