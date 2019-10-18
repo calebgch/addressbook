@@ -22,12 +22,18 @@ class Entity(object):
             self.chushi = chushi.replace('\n', '')
         if name is not None and isinstance(name,str):
             self.name = name.replace('\n', '')
-        if tel is not None and isinstance(tel,str):
-            self.tel1 = tel.replace('\n', '')
-        if mobile is not None and isinstance(mobile,str):
-            self.mobile = mobile.replace('\n', '')
+            self.name = self.name.replace(' ', '')
+        self.tel1 = str(tel).replace('\n', '')
+        self.mobile = str(mobile).replace('\n', '')
+        #if tel is not None and isinstance(tel,str):
+        #    self.tel1 = tel.replace('\n', '')
+        #if mobile is not None and isinstance(mobile,str):
+        #    self.mobile = mobile.replace('\n', '')
         if gongwei is not None and isinstance(gongwei,str):
             self.gongwei = gongwei.replace('\n', '')
+        if isinstance(gongwei, int):
+            self.gongwei = str(gongwei).replace('\n', '')
+            self.gongwei = self.gongwei.replace(' ', '')
         if company is not None and isinstance(company,str):
             self.company = company.replace('\n', '')
 
@@ -37,7 +43,7 @@ class Entity(object):
         #self.tel1 = tel
         #self.mobile = mobile
         #self.gongwei = gongwei
-        #self.leader = leader
+        self.leader = leader
         #self.company = company
         self.pinyin = ''.join(lazy_pinyin(self.name))
         self.suoxie = ''.join(lazy_pinyin(self.name, style=Style.FIRST_LETTER))

@@ -33,6 +33,8 @@ class ExcelReader:
             for irow in range(ws.max_row):
                 if self.is_department(irow+1, icol, sheet_name):
                     department = self.get_range_value(irow+1, icol, sheet_name)
+                    department = department.replace('\n', '')
+                    department = department.replace(' ', '')
                     continue
                 position = self.get_value(irow+1, icol+option["position"], sheet_name)
                 name = ws.cell(irow+1, icol+option["name"]).value
@@ -55,8 +57,9 @@ class ExcelReader:
                     e = Entity(department, position, name, tel, mobile, office, leader, company)
                     #e.clear()
                     entity_list.append(e)
-            icol += 5
+            icol += option["col_count"]
         self.dict[sheet_name] = entity_list
+        print(len(self.dict[sheet_name]))
 
     def get_range_value(self, row, col, sheet_name):
         # 获取指定的表单
@@ -93,13 +96,13 @@ class ExcelReader:
             return True
 
     def is_valid_name(self, name):
-        print(isinstance(name,str))
-        print(isinstance(name,int))
         if name is None:
             return  False
         if name == "":
             return False
-        if isinstance(name,str) == False:
+        if not isinstance(name,str):
+            return False
+        if name.isdigit():
             return False
         return True
 
@@ -108,6 +111,6 @@ class ExcelReader:
 
         with open(filename,'w', encoding='utf-8') as file_obj:
             for sheet_name in sheets:
-                if self.dict[sheet_name] is not None and len(self.dict[sheet_name]) > 0:
+                if sheet_name in self.dict.keys():
                 #if sheet_name == "北京研发中心" or sheet_name == "上海数据中心" or sheet_name == "股份公司":
                     json.dump(self.dict[sheet_name], file_obj, cls=MyEncoder,ensure_ascii=False,indent=4)

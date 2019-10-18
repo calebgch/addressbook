@@ -24,15 +24,24 @@ dict_gfgs = {"col_count": 4,
              "tel": 3,
              "mobile": 3
              }
+dict_jt = {"col_count": 5,
+           "position": 0,
+           "name": 1,
+           "office": 2,
+           "tel": 3,
+           "mobile": 3
+           }
 
 dict_all = {"北京研发中心": dict_yfzx,
             "上海数据中心": dict_sjzx,
-            "股份公司": dict_gfgs}
+            "股份公司": dict_gfgs,
+            "集团": dict_jt}
 
 reader = ExcelReader("D:\\公司电话簿.xlsx", dict_all)
-#reader.read_sheet("北京研发中心")
-#reader.read_sheet("上海数据中心")
+reader.read_sheet("北京研发中心")
+reader.read_sheet("上海数据中心")
 reader.read_sheet("股份公司")
+reader.read_sheet("集团")
 
 reader.write_file("d:\\names.json")
 
