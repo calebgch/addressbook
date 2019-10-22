@@ -71,4 +71,19 @@ class Entity(object):
         if self.gongwei is not None and isinstance(self.gongwei,str):
             self.gongwei = self.gongwei.replace('\n', '')
 
-
+    def to_sql(self):
+        table_name = 'book'
+        bool_int = {True: "1", False: "0"}
+        return 'insert into {} (name, tel, mobile, bumen, chushi, gongwei, company, pinyin, suoxie, leader) value (\'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', {});'.format(
+            table_name,
+            self.name,
+            self.tel1,
+            self.mobile,
+            self.bumen,
+            self.chushi,
+            self.gongwei,
+            self.company,
+            self.pinyin,
+            self.suoxie,
+            bool_int[self.leader]
+        )

@@ -16,7 +16,7 @@ class ExcelReader:
         self.wb = openpyxl.load_workbook(filename)
         self.options = options
         sheets = self.wb.sheetnames
-        print(sheets, type(sheets))
+        #print(sheets, type(sheets))
 
     def read_sheet(self, sheet_name):
         if self.wb is None:
@@ -24,7 +24,7 @@ class ExcelReader:
 
         option = self.options[sheet_name]
         ws = self.wb.get_sheet_by_name(sheet_name)
-        print(ws.max_column, ws.max_row)
+        #print(ws.max_column, ws.max_row)
         entity_list = []
         icol = 1
         department = ""
@@ -58,9 +58,10 @@ class ExcelReader:
                     e = Entity(department, position, name, tel, mobile, office, leader, company)
                     #e.clear()
                     entity_list.append(e)
+                    print(e.to_sql())
             icol += option["col_count"]
         self.dict[sheet_name] = entity_list
-        print(len(self.dict[sheet_name]))
+        #print(len(self.dict[sheet_name]))
 
     def get_range_value(self, row, col, sheet_name):
         # 获取指定的表单
